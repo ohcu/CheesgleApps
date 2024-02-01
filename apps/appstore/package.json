@@ -1,0 +1,15 @@
+{
+    "v": 1,
+    "title": "Appstore",
+    "description": "Install custom apps on your Cheesgle Byte",
+    "author": "WietseTD",
+    "version": 0.1,
+  
+    "category": "Utility",
+    "icon": "icon.png",
+    "screenshot": "screenshot.png",
+  
+    "entrypoint": "index.html",
+    
+    "permissions":["manageApps"]
+  }

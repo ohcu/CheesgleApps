@@ -1,0 +1,46 @@
+*{
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  body{
+    background-color: #ddc120;
+    color: rgb(0, 0, 0);
+    margin: 0px;
+    overflow: hidden;
+  }
+  
+  nav{
+    background-color: #ecc410;
+    padding-bottom: 2px;
+    padding-left: 4px;
+  }
+  
+  nav a{
+    color: #242424;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+  }
+  
+  nav a:hover{
+    color: #ff9e9e;
+  }
+  
+  main{
+    overflow: overlay !important;
+    height: 92%;
+    margin: 0px 4px;
+    cursor: text;
+  }
+  
+  /* scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #4a4a4a; 
+    border-radius: 10px;
+  }
