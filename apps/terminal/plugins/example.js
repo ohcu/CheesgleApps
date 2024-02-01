@@ -1,12 +1,12 @@
-// message when plugin has been loaded
+// Message when plugin has been loaded
 //print("hello from example plugin!",'lightgreen')
 
-// adding commands
+// Adding commands
 Object.assign(commands,{
   hello: [function(args) {
-    // code
-    return 'Hello, World! '+args; // you can replace this with print for colors.
-  },'- Example command'], // cmd description
+    // Code here
+    return 'Hello, World! '+args; // You can also use the print(); function, returning is optional.
+  },'- Example command'], // Command description
 });
 
-// available space for more functions and stuff
+// Available space for functions and stuff

@@ -1,7 +1,7 @@
 var ThemeTest = 0;
 
 Object.assign(commands,{
-  theme: function() {
+  themetest: function() {
     ThemeTest = 1;
     return ':)';
   }

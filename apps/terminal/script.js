@@ -25,7 +25,6 @@ var commands = {
 };
 
 async function loadPlugins() {
-  //plugins = ['https://sharptroubledentropy.wietsetd.repl.co/cheesgleapps/terminalplugins/commands.js','test.js','https://sharptroubledentropy.wietsetd.repl.co/cheesgleapps/terminalplugins/example.js','https://sharptroubledentropy.wietsetd.repl.co/cheesgleapps/terminalplugins/themetest.js']
   plugins = ['https://ohcu.github.io/CheesgleApps/apps/terminal/plugins/commands.js']
   failed = []
   print(`loading ${plugins.length} plugin(s)...`,'lightgray')

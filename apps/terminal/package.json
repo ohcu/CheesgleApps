@@ -12,5 +12,5 @@
   "entrypoint": "index.html",
   "color": "#2e2e2e",
   
-  "permissions":["sameOrigin","manageApps"]
+  "permissions":["manageApps"]
 }
