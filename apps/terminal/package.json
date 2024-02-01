@@ -1,0 +1,16 @@
+{
+  "v": 1,
+  "title": "Terminal",
+  "description": "Run commands on your Cheesgle Byte",
+  "author": "WietseTD",
+  "version": 0.1,
+
+  "category": "Utility",
+  "icon": "icon.png",
+  "screenshot": "screenshot.png",
+
+  "entrypoint": "index.html",
+  "color": "#2e2e2e",
+  
+  "permissions":["sameOrigin","manageApps"]
+}
