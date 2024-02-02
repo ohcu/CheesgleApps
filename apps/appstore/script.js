@@ -27,8 +27,8 @@ async function loadApps() {
         let appPath = json[i]
         
         let app
-        await getJSONP(appPath+'/package.json', function(data) {
-          app = data;
+        await fetch(appPath+`/package.json`).then(async (r) => {
+          app = r.json;
         });
 
         html.title = `${app.title}\nApp by ${app.author}\nPermissions: ${app.permissions.join(', ')}`
@@ -110,15 +110,18 @@ function customAlert(msg) {
   },3000)
 }
 
-function getJSONP(url, success) {
-  var ud = '_' + +new Date,
-      script = document.createElement('script'),
-      head = document.getElementsByTagName('head')[0] 
-             || document.documentElement;
-  window[ud] = function(data) {
-      head.removeChild(script);
-      success && success(data);
+function loadJSON(path, success, error) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        success(JSON.parse(xhr.responseText));
+      }
+      else {
+        error(xhr);
+      }
+    }
   };
-  script.src = url.replace('callback=?', 'callback=' + ud);
-  head.appendChild(script);
+  xhr.open('GET', path, true);
+  xhr.send();
 }
