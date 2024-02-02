@@ -28,10 +28,8 @@ async function loadApps() {
         
         let app
         await fetch(appPath+`/package.json`).then(async (r) => {
-          app = await r.json;
+          app = await r.json()
         });
-
-        if (app == null){return}
 
         html.title = `${app.title}\nApp by ${app.author}\nPermissions: ${app.permissions.join(', ')}`
         html.getElementsByTagName(`img`)[0].src = `${appPath}/${app.icon}`
