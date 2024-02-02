@@ -28,7 +28,13 @@ async function loadApps() {
         
         let app
         await fetch(appPath+`/package.json`).then(async (r) => {
-          app = r.json;
+          if (r.status == 200) {
+            console.log(r)
+            console.log(r.json)
+            app = r.json;
+          } else {
+            return null
+          }
         });
 
         html.title = `${app.title}\nApp by ${app.author}\nPermissions: ${app.permissions.join(', ')}`
