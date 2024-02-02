@@ -1,46 +1,126 @@
-*{
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    font-size: 15px;
-  }
+body {
+  margin: 12px;
+  background-color: #FFE380;
+  font-family: system-ui;
+  color: black;
+}
 
-  body{
-    background-color: #ddc120;
-    color: rgb(0, 0, 0);
-    margin: 0px;
-    overflow: hidden;
-  }
-  
-  nav{
-    background-color: #ecc410;
-    padding-bottom: 2px;
-    padding-left: 4px;
-  }
-  
-  nav a{
-    color: #242424;
-    cursor: pointer;
-    user-select: none;
-    text-decoration: none;
-  }
-  
-  nav a:hover{
-    color: #ff9e9e;
-  }
-  
-  main{
-    overflow: overlay !important;
-    height: 92%;
-    margin: 0px 4px;
-    cursor: text;
-  }
-  
-  /* scrollbar */
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #4a4a4a; 
-    border-radius: 10px;
-  }
+button {
+  width: 100%;
+  background-color: #d9ba4a;
+  color: white;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  font-size: large;
+  margin-top: 6px;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #c3a537;
+  color: white;
+}
+
+.app {
+  width: calc(100% - 6px);
+  background-color: #dab944;
+  color: white;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  font-size: large;
+  margin-bottom: 6px;
+}
+
+.app h3 {
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  margin-top: 6px;
+  font-size: small;
+  display: contents;
+}
+
+.app p {
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  margin-top: 0px;
+  font-size: 12px;
+}
+
+.app img {
+  float: left;
+  height: 50px;
+  border-radius: 8px;
+  margin-right: 8px;
+}
+
+.app .category {
+  float: right;
+  margin: 2px;
+  font-size: 10px;
+}
+
+.install, .uninstall {
+  float: right;
+  margin: 2px;
+  margin-top: -20px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #8eff52;
+}
+
+.uninstall {
+  color: #fe7171;
+}
+
+hr {
+  width: 100%;
+  border: 1px solid #393004;
+  border-radius: 3px;
+  margin: 6px;
+}
+
+#alert {
+  background: rgb(221, 143, 8, 0.4);
+  border-radius: 4px;
+  margin: 2px;
+  padding: 2px;
+  font-size: 14px;
+}
+
+#alertContainer {
+  background: rgb(231, 213, 19, 0.6);
+  border-radius: 6px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+/* Scroll bar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #E0C35A;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e6e6e6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c5c09b;
+}
