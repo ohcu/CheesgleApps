@@ -81,7 +81,7 @@ async function loadInstalled() {
     let app
     await fetch(appPath+`/package.json`).then(async (r) => {
       app = await r.json()
-    }).catch()
+    }).catch(error)
 
     if (app == null) { continue }
 
