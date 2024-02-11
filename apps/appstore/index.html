@@ -7,14 +7,27 @@
   <body>
     <div id="alertContainer"></div>
     <div id="loading">
-      <h2>ChedStore Apps</h2>
+      <h2>Chapp Store</h2>
       <hr>
       <p>Apps are loading...</p>
     </div>
-    <div id="main" hidden>
-      <h2>ChedStore Apps</h2>
+    <div id="browse" hidden>
+      <h2>Chapp Store</h2>
+      <nav>
+        <a class="active">Browse</a>
+        <a href="javascript:goto('installed')">Installed</a>
+      </nav>
       <hr>
-      <div id="apps"></div>
+      <div id="browseApps"></div>
+    </div>
+    <div id="installed" hidden>
+      <h2>Chapp Store</h2>
+      <nav>
+        <a href="javascript:goto('browse')">Browse</a>
+        <a class="active">Installed</a>
+      </nav>
+      <hr>
+      <div id="installedApps"></div>
     </div>
   </body>
 </html>

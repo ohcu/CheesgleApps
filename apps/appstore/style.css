@@ -5,6 +5,15 @@ body {
   color: black;
 }
 
+nav a {
+  color: #000;
+  margin-right: 5px;
+}
+
+nav a:hover {
+  color: #777;
+}
+
 button {
   width: 100%;
   background-color: #d9ba4a;
