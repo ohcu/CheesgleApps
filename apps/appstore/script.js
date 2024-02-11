@@ -79,9 +79,13 @@ async function loadInstalled() {
     if (appPath[i].endsWith('/')) { appPath.slice(0,-1); }
 
     let app
-    await fetch(appPath+`/package.json`).then(async (r) => {
-      app = await r.json()
-    }).catch(error)
+    try {
+      await fetch(appPath+`/package.json`).then(async (r) => {
+        app = await r.json()
+      });
+    } catch {
+      continue;
+    }
 
     if (app == null) { continue }
 
