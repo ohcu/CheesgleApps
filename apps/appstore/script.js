@@ -75,8 +75,8 @@ async function loadInstalled() {
   for (let i = 0; i < phoneApps.length; i++) {
     let html = createElementFromHTML(appTemplate2)
    
-    if (i.endsWith('/')) { i.slice(0,-1); }
-    let appPath = i
+    let appPath = phoneApps[i]
+    if (appPath[i].endsWith('/')) { appPath.slice(0,-1); }
 
     let app
     await fetch(appPath+`/package.json`).then(async (r) => {
