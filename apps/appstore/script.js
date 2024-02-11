@@ -121,7 +121,7 @@ window.addEventListener('message', async function ({ data }) {
     phoneApps = data.phoneApps;
     await loadApps()
     await loadInstalled()
-    goto('main')
+    goto('browse')
   }
 });
 
