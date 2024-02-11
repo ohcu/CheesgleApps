@@ -8,10 +8,15 @@ body {
 nav a {
   color: #000;
   margin-right: 5px;
+  text-decoration: none;
 }
 
 nav a:hover {
   color: #777;
+}
+
+nav a.active {
+  text-decoration: underline;
 }
 
 button {

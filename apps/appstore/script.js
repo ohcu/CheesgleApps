@@ -184,5 +184,5 @@ function goto(menu) {
   loading.hidden = true
   main.hidden = true
   installed.hidden = true
-  menu.hidden = false
+  document.getElementById(menu).hidden = false
 }
