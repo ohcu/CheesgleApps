@@ -25,7 +25,7 @@ var commands = {
 };
 
 async function loadPlugins() {
-  plugins = ['https://ohcu.github.io/cheesgle-apps/apps/terminal/plugins/commands.js']
+  plugins = ['https://ohcu.github.io/cheesgle-apps/apps/terminal/plugins/commands.js', 'https://ohcu.github.io/cheesgle-apps/apps/terminal/plugins/test.js']
   failed = []
   print(`loading ${plugins.length} plugin(s)...`,'lightgray')
   for (let i = 0; i < plugins.length; i++) {

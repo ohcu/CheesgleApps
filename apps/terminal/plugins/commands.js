@@ -1,7 +1,11 @@
+
+// commands
+
 Object.assign(commands,{
   echo: [function(args) {
     return args.join(' ');
   },'- Display Message'],
+
   app: [function(args) {
     const action = args[0]
     const url = args[1]
@@ -22,11 +26,7 @@ Object.assign(commands,{
       return 'Options: "del" "add" "list"'
     }
   },'- Manage Apps'],
-  apps: [function() {
-    const apps = phoneApps;
-    print('List Of Apps:')
-    print('• '+apps.join('\n• '),"#c6c928")
-  },'- Get Phone Apps *hidden*'],
+
   reload: [function() {
     els = document.getElementsByClassName("pluginscript")
     while(els.length > 0){
