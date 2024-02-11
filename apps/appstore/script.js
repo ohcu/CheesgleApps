@@ -75,7 +75,7 @@ async function loadInstalled() {
   for (let i = 0; i < phoneApps.length; i++) {
     let html = createElementFromHTML(appTemplate2)
    
-    if (i.endsWith('/') { i.slice(0,-1); }
+    if (i.endsWith('/')) { i.slice(0,-1); }
     let appPath = i
 
     let app
@@ -111,7 +111,7 @@ async function loadInstalled() {
 }
 
 let phoneApps = []
-window.addEventListener('message', function ({ data }) {
+window.addEventListener('message', async function ({ data }) {
   if (data.type == "info") {
     phoneApps = data.phoneApps;
     await loadApps()
