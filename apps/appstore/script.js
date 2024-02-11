@@ -16,7 +16,7 @@ const appTemplate2 = `<div class="app">
 let browseContainer = document.getElementById(`browseApps`);
 let appsContainer = document.getElementById(`installedApps`);
 let loading = document.getElementById(`loading`);
-let main = document.getElementById(`apps`);
+let main = document.getElementById(`browse`);
 let installed = document.getElementById(`installed`);
 
 function createElementFromHTML(htmlString) {
