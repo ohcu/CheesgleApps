@@ -80,9 +80,10 @@ async function loadInstalled() {
 
     let app
     await fetch(appPath+`/package.json`).then(async (r) => {
-      console.log(r.json())
       app = await r.json()
-    });
+    }).catch()
+
+    if (app == null) { continue }
 
     html.title = `${app.title}\nApp by ${app.author}\nPermissions: ${app.permissions.join(', ')}`
     html.getElementsByTagName(`img`)[0].src = `${appPath}/${app.icon}`
