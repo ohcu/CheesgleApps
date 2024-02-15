@@ -1,43 +1,40 @@
 
-// commands
+// echo command
 
-Object.assign(commands,{
-  echo: [function(args) {
-    return args.join(' ');
-  },'- Display Message'],
-
-  app: [function(args) {
-    const action = args[0]
-    const url = args[1]
-    if (action == "del") {
-      window.removeApp(url)
-      return `Removed App.`
-    } else if (action == "add") {
-      window.addApp(url)
-      return `Installed App.`
-    } else if (action == "list") {
-      const apps = phoneApps;
-      if (apps.length == 0) {
-        return "Please restart the app and try again."
-      }
-      print('List Of Apps:')
-      print('• '+apps.join('\n• '),"#c6c928")
-    } else {
-      return 'Options: "del" "add" "list"'
-    }
-  },'- Manage Apps'],
-
-  reload: [function() {
-    els = document.getElementsByClassName("pluginscript")
-    while(els.length > 0){
-      els[0].parentNode.removeChild(els[0]);
-    }
-    input.blur()
-    output.innerHTML = ''
-    loadPlugins()
-  },'- Reloads plugins.'],
+term.registerCommand('echo', (args) => {
+  term.log(args.join(' '));
 });
 
-function testclean(args) {
-  return 'hi' + args
-}
+// app command
+
+term.registerCommand('app', (args) => {
+  const action = args[0]
+  const url = args[1]
+  if (action == "remove") {
+    term.log(byte.uninstallApp(url))
+  } else if (action == "add") {
+    term.log(byte.installApp(url))
+  } else if (action == "list") {
+    const apps = phoneApps;
+    if (apps.length == 0) {
+      term.warn("please restart the app and try again.");
+      return;
+    }
+    term.log('installed apps on your byte:');
+    term.log('- '+apps.join('\n- '));
+  } else {
+    term.log('command options: \'remove\' \'add\' \'list\'')
+  }
+});
+
+// plugin commands
+
+term.registerCommand('plugin', (args) => {
+  term.warn('this command will come later!')
+});
+
+term.registerCommand('reload', () => {
+  els = document.getElementsByClassName("plugin-script")
+  while(els.length > 0) { els[0].parentNode.removeChild(els[0]); }
+  loadPlugins()
+});

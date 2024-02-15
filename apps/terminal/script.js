@@ -5,14 +5,14 @@ var sleep = ms => new Promise(res => setTimeout(res, ms));
 
 var commands = {
   help: [function() {
-    print('Available Commands:')
+    term.log('Available Commands:')
     for (const [key, value] of Object.entries(commands)) {
       if (value[1]) {
         if (!value[1].includes('*hidden*')) {
-          print(`${key} ${value[1]}`,'lightblue');
+          term.log(`${key} ${value[1]}`,'lightblue');
         }
       } else {
-        print(`${key} - No Description`,'lightblue');
+        term.log(`${key} - No Description`,'lightblue');
       }
     }
   },'- Command List'],
@@ -24,48 +24,122 @@ var commands = {
   },'- Exit To Home Page'],
 };
 
+// classes
+
+class Term {
+  constructor() {
+    this.registerCommand = function(cmd, func) {
+      console.log('register '+cmd)
+      if (cmd.isArray) { cmd = cmd.join() }
+      commands[cmd] = func
+    }
+    this.log = function(text) {
+      text = ansiHtml(`${text}\u001b[m`)
+      output.innerHTML += text + '\n';
+      output.scrollTop = output.scrollHeight;
+    }
+    this.error = function(text) {
+      text = ansiHtml(`\x1b[91;1;4m${text}\u001b[m`)
+      output.innerHTML += text + '\n';
+      output.scrollTop = output.scrollHeight;
+    }
+    this.warn = function(text) {
+      text = ansiHtml(`\x1b[33;1;4m${text}\u001b[m`)
+      output.innerHTML += text + '\n';
+      output.scrollTop = output.scrollHeight;
+    }
+  }
+}
+let term = new Term
+
+class Byte {
+  constructor() {
+    // install app
+    this.installApp = function(url) {
+        phoneApps.push(url)
+        phoneApps = phoneApps.sort((a, b) => {
+          return a.localeCompare(b)
+        })
+        parent.postMessage({
+          type: "installApp",
+          app: url
+        }, "*")
+        return 'installing app.'
+    }
+    // uninstall app
+    this.uninstallApp = function(url) {
+      let index = phoneApps.indexOf(url);
+      if (index > -1) {
+        phoneApps.splice(index, 1);
+      }
+      parent.postMessage({
+        type: "uninstallApp",
+        app: url
+      }, "*")
+      return 'removing app.'
+    }
+    // apps list
+    this.phoneApps = function() {
+      return phoneApps
+    }
+  }
+}
+let byte = new Byte
+
+
+// plugins
+
 async function loadPlugins() {
-  plugins = ['https://ohcu.github.io/cheesgle-apps/apps/terminal/plugins/commands.js', 'https://ohcu.github.io/cheesgle-apps/apps/terminal/plugins/test.js']
+  plugins = ['./plugins/commands.js', './plugins/test.js']
   failed = []
-  print(`loading ${plugins.length} plugin(s)...`,'lightgray')
+  term.log(`loading ${plugins.length} plugin(s)...`)
   for (let i = 0; i < plugins.length; i++) {
     pl = plugins[i]
     plsplit = pl.split('/')
     plshort = plsplit[plsplit.length-1]
-    print('loading plugin: ..'+plshort,'gray')
+    term.log(`loading plugin: ../${plshort}`)
     try {
-      await fetch(pl).then((re) => {
-        if (re.status == 200) {
-          var script = document.createElement('script');
-          script.src = pl;
-          script.className = "pluginscript"
-          script.setAttribute("defer","");
-          document.getElementsByTagName('head')[0].appendChild(script);
-          print('loaded plugin: ..'+plshort,'green')
-        } else {
-          print(`failed to fetch. status ${re.status}`,'#FF9494')
-          failed.push(plshort)
-        }
-      })
+      let skip;
+      if (pl.startsWith('http')) {
+        await fetch(pl).then((re) => {
+          if (re.status != 200) {
+            term.error(`failed to fetch. status ${re.status}`)
+            failed.push(plshort)
+            skip = true
+          }
+        });
+      }
+      if (skip) { continue; }
+      var script = document.createElement('script');
+      script.src = pl;
+      script.className = "plugin-script"
+      script.setAttribute("defer","");
+      document.getElementsByTagName('head')[0].appendChild(script);
+      console.log(`loaded plugin: ../${plshort}`)
     } catch (e) {
-      print(`An error occurred: ${e}`,'#FF9494');
+      term.error(`error loading plugin: ${e}`);
       failed.push(plshort)
     }
   }
+  term.log(``)
   clearTerminal()
+  term.log(`Cheesgle Terminal v0.1\n\nType 'help' to get help.`)
   if (failed.length >= 1) {
-    print(`${failed.length} plugin(s) failed to load.`,'#FF9494');
+    term.error(`${failed.length} plugin(s) failed to load.`);
   }
+  term.log('')
 }
+
+// events
 
 let phoneApps = []
 window.addEventListener('message', function ({ data }) {
-  //print(`received "${data.type}" data.`,'gray')
+  //term.log(`received "${data.type}" data.`,'gray')
   if (data.type == "info") {
     phoneApps = data.phoneApps;
   }
   if (data.type == "closing") {
-    print('Goodbye!',"lightblue")
+    term.log('Goodbye!')
   }
 });
 
@@ -74,72 +148,77 @@ window.addEventListener("load", (event) => {
   loadPlugins()
 });
 
+// terminal stuff
+
 function clearTerminal() {
-  input.focus()
-  output.innerHTML = ''
-  print('Cheesgle Terminal v0.1\n','yellow')
-  print('Welcome to the cheesgle terminal. Type "help" for a list of commands.')
+  output.innerHTML = '';
+  clearInput();
 }
 
 function clearInput() {
   input.value = '';
+  inputForm.hidden = false;
+  input.focus();
 }
 
-function print(text, clr=null) {
-  text = htmlEntities(text)
-  if (clr == null) {
-    output.innerHTML += text + '\n';
-  } else {
-    output.innerHTML += '<span style="color:'+clr+';">'+text+'</span>' + '\n';
-  }
-  output.scrollTop = output.scrollHeight;
-  var event = new CustomEvent("textprinted");
-  document.dispatchEvent(event);
+function disableInput() {
+  clearInput();
+  inputForm.hidden = true;
 }
 
 function htmlEntities(str) {
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function handleInput() {
-  const command = input.value.trim();
-  if (!command) {
-    clearInput();
-    return;
+$('#input').keydown(function(e) {
+  if (e.keyCode == 13){
+    e.preventDefault();
+    handleInput();
   }
-    
-  const parts = command.split(/\s+/);
-  const cmd = parts[0];
-  const args = parts.slice(1);
-    
-  if (cmd in commands) {
-    print(`\n$ ${command}`)
+});
+
+async function handleInput() {
+  const command = input.value.trim();
+  disableInput();
+
+  term.log(`> ${command}`)
+  if (!command) { clearInput(); return; }
+
+  let parts = command.split(/\s+/);
+  let cmd = parts[0];
+  let args = parts.slice(1);
+
+  let keys = Object.keys(commands)
+  let cmds = {}
+  for (let i = 0; i < keys.length; i++) {
+    let split = keys[i].split(',')
+    for (let j = 0; j < split.length; j++) {
+      cmds[split[j]] = keys[i]
+    }
+  }
+  console.log(cmds)
+
+  if (cmd in cmds) {
+    let full = cmds[cmd]
     try {
-      var result = commands[cmd][0](args);
-    } catch {
+      await commands[full][0](args);
+    } catch (e) {
       try {
-        var result = commands[cmd](args);
+        await commands[full](args);
       } catch (e) {
-        print(`An error occurred: ${e}`,'#FF9494');
-        clearInput();
-        return;
+        term.error(`error executing command: ${e}`);
       }
     }
-    if (result != null) {
-      print(`${result}`);
-    }
   } else {
-    print(`\n$ ${command}`);
-    print(`Command not found: ${cmd}`,'#FF9494');
+    term.log(`command not found: ${cmd}`);
   }
-    
   clearInput();
 }
 
-inputForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  handleInput();
-});
+// inputForm.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   handleInput();
+// });
 
 function closeMenu() {
   var element = document.getElementById("menu");
@@ -152,27 +231,4 @@ function openMenu(type) {
   element.style.display = "block";
   element.style.left = (rect.left+110)+"px";
   element.style.top = (rect.top+41)+"px";
-}
-
-//command functions
-function addApp(URL) {
-  phoneApps.push(URL)
-  phoneApps = phoneApps.sort((a, b) => {
-    return a.localeCompare(b)
-  })
-  parent.postMessage({
-    type: "installApp",
-    app: URL
-  }, "*")
-}
-
-function removeApp(URL) {
-  let index = phoneApps.indexOf(URL);
-  if (index > -1) {
-    phoneApps.splice(index, 1);
-  }
-  parent.postMessage({
-    type: "uninstallApp",
-    app: URL
-  }, "*")
 }

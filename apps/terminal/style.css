@@ -1,10 +1,11 @@
-*{
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  font-size: 15px;
+* {
+  /* font-family: 'Courier New', monospace;
+  font-weight: bold; */
+  font-family: 'Cascadia Code', sans-serif;
+  font-size: 14px;
 }
 
-#menu{
+#menu {
   display: none;
   position: fixed;
   background-color: #545454;
@@ -15,7 +16,7 @@
   clear: both;
 }
 
-#menu a{
+#menu a {
   color: #fff;
   margin: 4px;
   cursor: pointer;
@@ -23,35 +24,35 @@
   text-decoration: none;
 }
 
-#menu a:hover{
+#menu a:hover {
   background-color: rgb(255,255,255,0.2);
 }
 
-body{
-  background-color: #141414;
+body {
+  background-color: #0f0f0f;
   color: white;
   margin: 0px;
   overflow: hidden;
 }
 
-nav{
+nav {
   background-color: #2e2e2e;
   padding-bottom: 2px;
   padding-left: 4px;
 }
 
-nav a{
+nav a {
   color: #fff;
   cursor: pointer;
   user-select: none;
   text-decoration: none;
 }
 
-nav a:hover{
+nav a:hover {
   color: #ff9e9e;
 }
 
-main{
+main {
   overflow: overlay !important;
   height: 92%;
   margin: 0px 4px;
@@ -62,18 +63,27 @@ pre{
   box-sizing: border-box;
   white-space: pre-wrap;
   word-wrap: break-word;
+  margin: 0;
+  margin-top: 14px;
 }
 
-input{
+#input {
+  position: relative;
   background: none;
   color: white;
   border: none;
   outline: none;
-  margin: -5px;
+  height: 100%;
   width: 90%;
+  resize: none;
+  margin-top: -2px;
+  margin-left: 14px;
 }
 
-/* scrollbar */
+#inputForm > span {
+  position: absolute;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -81,4 +91,8 @@ input{
 ::-webkit-scrollbar-thumb {
   background: #4a4a4a; 
   border-radius: 10px;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.7);
 }

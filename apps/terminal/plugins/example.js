@@ -1,7 +1,7 @@
 // Message when plugin has been loaded
 //print("hello from example plugin!",'lightgreen')
 
-// Adding commands
+// Adding commands (legacy)
 Object.assign(commands,{
   hello: [function(args) {
     // Code here

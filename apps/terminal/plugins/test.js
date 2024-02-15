@@ -1,17 +1,27 @@
-Object.assign(commands,{
-  test: function() {
-    return 'test message :D'
-  },
+// legacy
+// Object.assign(commands,{
+//   test: function() {
+//     term.log('test message :D')
+//   },
+// });
+
+// test commands
+
+term.registerCommand(['test','testalias'], async (args) => {
+  term.log('test message '+args);
+  await sleep(1000);
+  term.warn('warning');
+  await sleep(1000);
+  term.error('error');
 });
 
-class Term {
-  static commands = {
-    register: function(cmd, func) {
-      console.log('you are registering '+cmd)
+term.registerCommand('colors', () => {
+  for (var i = 0, _pj_a = 16; i < _pj_a; i += 1) {
+    txt = "";
+    for (var j = 0, _pj_b = 16; j < _pj_b; j += 1) {
+      code = (i * 16 + j).toString();
+      txt = txt + "\u001b[48;5;" + code + "m " + code.padEnd(4);
     }
-  };
-}
-
-Term.commands.register('newcmd', (args) => {
-  return 'This is a message. '+args;
+    term.log(txt)
+  }
 });
