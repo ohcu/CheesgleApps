@@ -31,6 +31,7 @@ class Term {
     this.registerCommand = function(cmd, func) {
       console.log('register '+cmd)
       if (cmd.isArray) { cmd = cmd.join() }
+      cmd = cmd.toLowerCase();
       commands[cmd] = func
     }
     this.log = function(text) {
@@ -179,6 +180,7 @@ $('#input').keydown(function(e) {
 
 async function handleInput() {
   const command = input.value.trim();
+  command = command.toLowerCase();
   disableInput();
 
   term.log(`> ${command}`)
