@@ -21,10 +21,9 @@
   </nav> -->
   <main>
     <pre id="output"></pre>
-    <div id="inputForm">
-      <span>></span>
-      <textarea id="input" spellcheck="false" autofocus></textarea>
-      </div>
+    <div id="inputForm" onclick="$('#input').focus()">
+      <span id="prefix">></span>
+      <span id="input" spellcheck="false" autofocus contenteditable></span>
     </div>
   </main>
 </body></html>

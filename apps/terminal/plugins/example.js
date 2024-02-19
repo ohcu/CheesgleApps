@@ -1,12 +1,9 @@
-// Message when plugin has been loaded
-//print("hello from example plugin!",'lightgreen')
+// example plugin (more later!)
 
-// Adding commands (legacy)
-Object.assign(commands,{
-  hello: [function(args) {
-    // Code here
-    return 'Hello, World! '+args; // You can also use the print(); function, returning is optional.
-  },'- Example command'], // Command description
+// Adding commands
+term.registerCommand('example', () => {
+  term.log('normal');
+  term.warn('warn');
+  term.error('error');
+  term.log('\x1b[0;94mcustom color')
 });
-
-// Available space for functions and stuff

@@ -1,9 +1,22 @@
 
-// echo command
+// commands
 
 term.registerCommand('echo', (args) => {
   term.log(args.join(' '));
 });
+
+term.registerCommand('help', () => {
+  let msg = 'available commands: '
+  for (const [key, value] of Object.entries(commands)) {
+    msg = msg + key + ","
+  }
+  msg = msg.substring(0,msg.length-1).replaceAll(',',', ');
+  term.log(msg);
+});
+
+term.registerCommand(['clear','cls'], () => { clearTerminal(); });
+
+term.registerCommand('exit', () => { parent.postMessage({type:"close"},"*"); });
 
 // app command
 
