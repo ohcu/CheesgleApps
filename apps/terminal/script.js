@@ -12,7 +12,7 @@ class Term {
     this.registerCommand = function(cmd, func) {
       console.log('register '+cmd)
       if (cmd.isArray) { cmd = cmd.join() }
-      cmd = cmd.toLowerCase();
+      cmd = String(cmd).toLowerCase();
       commands[cmd] = func;
     }
     this.log = function(text) {
